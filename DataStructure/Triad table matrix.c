@@ -183,12 +183,15 @@ TSMatrix Triple_add(TSMatrix Ta, TSMatrix Tb)
      TSMatrix Ta,Tb,Tc;
      int A[MAX][MAX], B[MAX][MAX];
      int i, j;
+     printf("请输入矩阵的行数和列数：\n");
      scanf("%d %d",&m,&n);
+     printf("请输入第一个%d*%d的矩阵：\n",m,n);
      for(i=0; i<m; i++)
         for(j=0; j<n; j++)
         {
             scanf("%d", &A[i][j]);
         }
+     printf("请输入第二个%d*%d的矩阵：\n",m,n);
      for(i=0; i<m; i++)
         for(j=0; j<n; j++)
         {
@@ -201,13 +204,14 @@ TSMatrix Triple_add(TSMatrix Ta, TSMatrix Tb)
 
      Triple_turn(&Ta,A);
      Triple_turn(&Tb,B);
-
+printf("矩阵相加后为：\n");
     Tc = Triple_add(Ta,Tb);
     for(i=0; i<Tc.nums; i++)
         printf("%d\n",Tc.data[i].valude);
 
     Tc = Triple_subtract(Ta,Tb);
-    for(i=0;i<Tc.nums; i+=)
+printf("矩阵相减后为：\n");
+    for(i=0;i<Tc.nums; i++)
         printf("%d\n",Tc.data[i].valude);        
 
      return 0;
