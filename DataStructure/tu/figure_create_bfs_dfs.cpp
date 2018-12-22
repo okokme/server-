@@ -45,14 +45,22 @@ D 2 1 3
 E 1 1 2
 ABCDE
 ABECD
+A 2 1 3
+B 1 2 3
+C 1 2 3
+D 2 1 3
+E 1 1 2
+ABCDE
+ABECD
 提示
 */
 
 
-#include<cstdio.h>  
-#include<iotreeam>
+#include<cstdio>  
+#include<iostream>
 #include<queue>
 using namespace std;
+
 #define MAXVEX 100 //最大顶点数
 #define INFINITX 65535 //无穷大
 typedef struct 
@@ -131,9 +139,10 @@ void dushu(MGrap G)
     for( i=1; i<=G.numVertexes; i++)
     {   
         printf("%c ",64+i);
-        for(j = 1; j<=3; j++)
+        for(j = 1; j<=2; j++)
             printf("%d ",dushu[i][j]);
-        printf("\n");
+        printf("%d\n",dushu[i][j]);
+      //  printf("\n");
 
     }
   
@@ -173,6 +182,29 @@ void DFS(MGrap G, int v)
 int BFS(MGrap G, int v)
 {
 
+    queue<int> Q;
+    int p,w;
+    printf("%c",G.vexs[v]);
+    visited[v] = 1;
+    Q.push(v);
+    while(!Q.empty())
+    {
+       p = Q.front();
+       Q.pop();
+        w = FirstAdjVex(G,p);
+        while(w != -1)
+        {
+            if(!visited[w])
+            {
+                printf("%c",G.vexs[w]);
+                visited[w] = 1;
+                Q.push(w);
+            }
+            w = NextAdjVex(G, p, w);
+        }
+
+    }
+
 }
 void TraverseGDFS(MGrap G)
 {
@@ -199,8 +231,10 @@ void TraverseGBFS(MGrap G)
     for(i=1; i<=G.numVertexes; i++)
         if(visited[i] == 0)
         {
+      //      printf("第%d个",i);
             BFS(G,i);
         }
+    printf("\n");
     
 }
 
@@ -210,9 +244,8 @@ int main(int argc, char const *argv[])
 {
     MGrap G;
     CreateMGraph(&G);
-   // dushu(G); (注意！！！等会注释去掉！！！！！！！！！！！！)
+    dushu(G); //(注意！！！等会注释去掉！！！！！！！！！！！！)
     TraverseGDFS(G);
     TraverseGBFS(G);
-
     return 0;
 }
