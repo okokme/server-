@@ -1,182 +1,3 @@
-// #include "task.h"
-
-// void Task::doit()
-// {
-//   //  char buf[buffer_size] = {0};
-
-//     char buf[ BUFFER_SIZE ] = {0};
-
-//     while(int r = recv( accp_fd, buf, 1024, 0))
-//     {
-//         if( !r )
-//         {
-//             cout<< "浏览器 退出\n"<<endl;
-//             break;
-//         }
-//         else if( r < 0 )//如果接收出错，则继续接收数据
-//         {
-//             continue;
-//         }
-//             buf[strlen(buf)+1]='\0';
-//             printf("%s\n",buf);
-//             printf("successeful!\n");
-
-//         int start = 0;
-//         char method[5], uri[100], version[10];
-//         sscanf(buf, "%s %s %s", method, uri, version );
-
-//         if(char *tmp = strstr(buf, "Range:")) //判断Range是否为buf的子串
-//         {//将tmp指向buf中 由Range开头的子串:用于文件传输
-//             tmp += 13;
-//             sscanf(tmp, "%d", &start);
-//         }
-
-//         if( !strcmp(method, "GET"))
-//         {
-//             deal_get(uri, start);
-//         }
-//         else if(!strcmp(method, "POST"))
-//         {
-//             deal_post(uri, buf);
-//         }
-//         else
-//         {
-//             const char *header = "HTTP/1.1 Not Implemented\r\nContent-Type: text/plain;charset=utf-8\r\n\r\n";
-//             send( accp_fd, header, strlen(header), 0);
-//         }
-//         break;
-//     }
-// }
-
-// int Task::deal_get(const string &uri, int start)
-// {
-//     string filename = uri.substr(1);
-//     if(uri == "/" || uri == "/index.html")
-//     {
-//         send_file("index.html", "text/html", start);
-//     }
-//     else if(uri.find(".jpg") != string::npos || uri.find(".png") != string::npos)
-//     {//string.find() 如果没有查询到，则返回string：：npos，这是一个很大的数，其值不需要知道。
-//         send_file(filename,"image/jpg",start);
-//     }
-//     else if(uri.find(".html") != string::npos)
-//     {
-//         send_file(filename,"text/html",start);
-//     }
-//     else if(uri.find(".js") != string::npos)
-//     {
-//         send_file(filename,"yexy/javascript",start);
-//     }
-//     else if(uri.find(".ico") != string::npos)
-//     {
-//         send_file(filename,"image/x-icon",start);
-//     }
-//     else if(uri.find(".css") != string::npos)
-//     {
-//         send_file(filename,"text/css",start);
-//     }
-//     else if(uri.find(".mp3") != string::npos)
-//     {
-//         send_file(filename,"audio/mp3",start);
-//     }
-//     else if(uri.find(".mp4") != string::npos)
-//     {
-//         send_file(filename,"audio/mp4",start);
-//     }
-//     else
-//     {
-//         send_file(filename,"text/plain",start);
-//     }
-// }
-
-// int Task::deal_post(const string & uri, char *buf)
-// {
-//     string filename = uri.substr(1);
-//     if(uri.find("addr") != string::npos)
-//     {//使用CGI服务器，进行加法运算
-//         char *tmp = buf;
-//         int len, a,b;
-//         char *l = strstr(tmp, "Content-Length:");//获取请求报文主体大小
-//         sscanf(l, "Content-Length: %d", &len);
-//         len = strlen( tmp ) - len;
-//         tmp += len;
-//         sscanf(tmp, "a=%d&b=%d", &a, &b);
-//         sprintf(tmp, "%d+%d,%d", a, b, accp_fd);//tmp存储发送到CGI服务器的参数
-
-//         //fork产生子进程，执行CGI服务器进行计算
-//         if(fork() == 0)
-//         {
-//             execl(filename.c_str(), tmp, NULL);//c_str()返回首地址
-//         }
-//         wait( NULL );
-
-//     }
-//     else
-//     {
-//         send_file("html/404.html", "text/html", 0, 404,"Not Found");
-//     }
-// }
-
-// int Task::get_size( const string & filename ) 
-// {
-//     struct stat filestat;
-//     int ret = stat( filename.c_str(), &filestat );
-//     if( ret < 0 ) {
-//         cout << "file not found : " << filename << endl;
-//         return 0;
-//     }
-//     return filestat.st_size;
-// }
-
-// //send_file(filename,"audio/mp3",strat)
-// //send_file("html/404.html", "text/html", 0, 404,"Not Found");
-// int Task::send_file(const string &filename, const char *type, int start, const int num, const char *info)
-// {
-//     struct stat filestat;
-//     int ret = stat(filename.c_str(),&filestat);
-//     if(ret <0 || !S_ISREG(filestat.st_mode))
-//     {//打开文件出错或没有该文件
-//         cout<<"file not found:"<<filename<<endl;
-//         send_file( "html/404.html", "text/html", 0, 404, "Not Found" );
-//         return -1;
-//     }
-//     char header[200];
-//     sprintf(header, "HTTP/1.1 %d %s\r\nServer: okokme\r\nContent-Length: %d\r\nCotent-Type: %s;charset:utf-8\r\n\r\n",num, info, int(filestat.st_size - start), type);
-    
-//     //send第二个参数只能是c类型字符串，不能使用string
-//     send(accp_fd, header, strlen(header), 0);
-//     int fd = open(filename.c_str(), O_RDONLY);
-//     int sum = start;
-//     while(sum < filestat.st_size)
-//     {
-//         off_t t = sum;
-//         int r = sendfile(accp_fd, fd, &t, filestat.st_size);
-//         if( r<0 )
-//         {          
-//             my_err("sendfile: ",__LINE__);
-//             //  printf("errno = %d, r = %d\n", errno, r);
-//             // // perror("sendfile : ");
-//             if( errno == EAGAIN ) {
-//                 printf("errno is EAGAIN\n");
-//                 // reset_oneshot( epoll_fd, accp_fd );
-//                 continue;
-//             }
-//             else{
-//                 my_err("sendfile: ",__LINE__);
-//                 close(fd);
-//                 break;
-//             }
-//         }
-//         else
-//         {
-//             sum += r;
-//         }
-//     }
-//     close(fd);
-//     return 0;
-// }
-
-
 #include "task.h"
 
 void removefd( int epollfd, int fd ) {
@@ -288,47 +109,45 @@ int Task::deal_post( const string & uri, char *buf ) {
 int Task::send_file( const string & filename, const char *type, 
                             int start, const int num, const char *info ) {
     struct stat filestat;
+    char header[200];
+    int fd;    
     int ret = stat( filename.c_str(), &filestat );
     if( ret < 0 || !S_ISREG( filestat.st_mode ) ) {  // 打开文件出错或没有该文件
         test_i++;
         printf("accp_fd = %d, epoll_fd = %d, i = %d\n",accp_fd,epoll_fd,test_i);
 
         cout << "file not found : " << filename << endl;
-        // sendfile( "html/404.html", "text/html", 0, 404, "Not Found" );
-        // // test_i++;
-        // // printf("accp_fd = %d, epoll_fd = %d, i = %d\n",accp_fd,epoll_fd,test_i);
-        // return -1;
 
    char path_404[40];//出错码404对应文件名缓冲区
-   char *url;//文件名称
-    bzero(url, strlen(url));
-    strcpy(path_404,"not_found_request.html");
-    url = path_404;
+ //  char *url;//文件名称
+  //  bzero(url, strlen(url));
+    strcpy(path_404,"404.html");
+ //   url = path_404;
     char filename2[200];
     bzero(filename2,sizeof(filename2));
-    sprintf(filename2,"/home/k/linuxc-/linux高性能服务器编程/http服务器/My web server%s",url);
+    sprintf(filename2,"/home/k/linuxc-/linux高性能服务器编程/http服务器/My web server%s",path_404);
     struct stat my_file;
     if(stat(filename2,&my_file)<0)
     {
         cout << "获取失败\n";
     }
     int file_size = my_file.st_size;
-    char requst_head_buf[1000];
-    bzero(requst_head_buf,sizeof(requst_head_buf));
-    sprintf(requst_head_buf,"HTTP/1.1 404 NOT_FOUND\r\nConnection: close\r\ncontent-length:%d\r\n\r\n",file_size);
-    send( accp_fd, requst_head_buf, strlen(requst_head_buf), 0 );
-
+   // char header[200];
+    sprintf(header,"HTTP/1.1 404 NOT_FOUND\r\nConnection: close\r\ncontent-length:%d\r\n\r\n",file_size);
+    send( accp_fd, header, strlen(header), 0 );
+    fd = open(path_404, O_RDONLY); //打开404文件
+    close(fd);
     return -1;
 
     }
 
-    char header[200];
+   // char header[200];
     sprintf( header, "HTTP/1.1 %d %s\r\nServer: okokme\r\nContent-Length: %d\r\nContent-Type: %s;\r\ncharset:utf-8\r\n\r\n", num, info, int(filestat.st_size - start), type );
 
     // send第二个参数只能是c类型字符串，不能使用string
     send( accp_fd, header, strlen(header), 0 );
 
-    int fd = open( filename.c_str(), O_RDONLY );
+    fd = open( filename.c_str(), O_RDONLY ); //打开文件
     int sum = start;
 
     while( sum < filestat.st_size ) {
@@ -364,7 +183,7 @@ int Task::send_file( const string & filename, const char *type,
             sum += r;
     }
     close( fd );
-// printf( "sendfile finish, %d\n", accp_fd );
+    printf( "sendfile finish, %d\n", accp_fd );
     return 0;
 }
 
