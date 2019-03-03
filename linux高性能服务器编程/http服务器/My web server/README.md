@@ -2,7 +2,17 @@
 
 清除.o文件： make clean
 
-基于epoll和线程池实现的小型webserver
+服务器运行：./server 8888
+
+打开浏览器输入：localhost：8888
+
+
+
+基于epoll和线程池实现的小型webserver，支持GET、POST方法。
+
+可以解析返回html、css、js、mp3、mp4、jpg、png等文件。
+
+使用c++编写。
 
 ---
 
@@ -63,6 +73,8 @@
 ---
 
 附一个GET报文和一个POST报文以作参考
+
+GET的buf接收的是这种
 
 `GET /1.png HTTP/1.1 Host: localhost:8888 Connection: keep-alive User-Agent: Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/70.0.3538.102 Safari/537.36 Accept: image/webp,image/apng,image/*,*/*;q=0.8 Referer: http://localhost:8888/submit.html Accept-Encoding: gzip, deflate, br Accept-Language: zh-CN,zh;q=0.9 Cookie: _ga=GA1.1.1296320880.1547386986  `
 
