@@ -24,12 +24,10 @@ int main(int argc, char const *argv[])
     
     cout<<s4<<endl;
     // ostream& operator<<(ostream &out, const MyString &s);
-    
+    cin>>s1;
+    cout<<s4<<endl;
+    // istream& operator>>(istream &in, const MyString &s);
     //类与字符串比较
-    // bool operator==(const char*p);
-    // bool operator==(const MyString& s);
-    // bool operator!=(const char*p);
-    // bool operator!=(const MyString& s);
     if(s2 == "s222222")
     {
         cout<<"相等"<<endl;
@@ -47,5 +45,14 @@ int main(int argc, char const *argv[])
     {
         cout<<"不相等"<<endl;        
     }
+    s3 = s1 + s2;
+    cout<<s3.c_str()<<endl;
+
+     MyString str("Teat string");
+    // for(std::string::iterator it=str.begin(); it!=str.end(); ++it)
+    //     cout<<*it<<endl;
+    // cout<<'\n';
+    cout<<str.erase(2,5)<<endl;
+    cout<<str.find("er")<<endl;
     return 0;
 }
