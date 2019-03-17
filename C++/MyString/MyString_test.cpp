@@ -13,15 +13,10 @@ int main(int argc, char const *argv[])
     //测试运算符重载 和重载[]
     s4 = s2;
     s4 = "s222222";
-    // MyString& operator=(const char *p);
-    // MyString& operator=(const MyString &s);
-
     //求字符串数组元素  
     s4[1] = '4';
     printf("%c", s4[1]);
-    // s4[0];
-    // char& operator[] (int index);
-    
+
     cout<<s4<<endl;
     // ostream& operator<<(ostream &out, const MyString &s);
     cin>>s1;
@@ -54,5 +49,12 @@ int main(int argc, char const *argv[])
     // cout<<'\n';
     cout<<str.erase(2,5)<<endl;
     cout<<str.find("er")<<endl;
+
+    for(MyString::iterator t = str.begin(); t!=str.end(); t++)
+        cout<<*t;
+    cout<<'\n';
+  //  t = "aaaaaaaaa";
+  //  cout<<t<<endl;
+    
     return 0;
 }
