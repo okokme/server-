@@ -19,9 +19,9 @@ semaphore mutex = 1, empty = N, full = 0, proCmutex = 1;
 void * producer(void * a){
     while(true){
         while(proCmutex <= 0);
-        proCmutex--;
+        proCmutex--; //保证只有一个线程在生产，只有一个线程生产完，其他线程才能获得CPU
         proCount++;
-        printf("生产一个产品ID%d, 缓冲区位置为%d\n",proCount,in);
+     ‘   printf("生产一个产品ID%d, 缓冲区位置为%d\n",proCount,in);
         proCmutex++;
 
         while(empty <= 0){
@@ -40,15 +40,17 @@ void * producer(void * a){
         sleep(sleepTime);
     }
 }
-
+//为什么要设置两个变量 full 和 empty 不能只用一个吗？
 void * consumer(void *b){
     while(true){
         while(full <= 0){
+          
+          
             printf("缓冲区为空！\n");
         }
         full--;
 
-        while(mutex <= 0);
+        while(mutex <= 0); //保证只有一个线程在消费，其他线程先阻塞
         mutex--;
 
         int nextc = buffer[out];
