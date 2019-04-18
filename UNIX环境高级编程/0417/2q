@@ -1,20 +1,26 @@
-#include <iostream>
 #include <unistd.h>
-using namespace std;
+#include <pthread.h>
+#include <stdio.h>
+//using namespace std;
 //int main()
 //{//3.如果多线程模型中,一个线程有异常,比如1/0,这时候这个程序会怎么样?
 // 如果是发信号,是哪个线程发送的信如果出现这种情况,应该怎么处理?
 // void bbb(int t)                                                                    
-void *bbb()
+//void *bbb()
+//{
+//    cout << "float err" << endl;
+//    printf("floa err\n");
+//    pthread_cancel(pthread_self());
+//    sleep(2);
+//}
+void aaa()
 {
-    cout << "float err" << endl;
-  //  pthread_cancel(pthread_self());
-    sleep(2);
+    int a = 1/5;
 }
 int main()
 {
 pthread_t t;
-    pthread_create(&t,NULL,(void *)bbb,NULL);
+    pthread_create(&t,NULL,(void *)aaa,NULL);
  while(1)
     {
         //int t = sleep(10);
@@ -22,10 +28,11 @@ pthread_t t;
         //cout << "wark up" << endl;
         
         int t = sleep(3);
-        if(t)
-        cout << "wark up" << endl;
+   //     if(t)
+     //   cout << "wark up" << endl;
+        printf("wark up\n");
     }                                                                              
-    std::cout << "Hello world" << std::endl;
+//    std::cout << "Hello world" << std::endl;
     return 0;
 }
 
