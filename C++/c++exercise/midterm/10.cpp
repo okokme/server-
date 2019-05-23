@@ -1,30 +1,30 @@
-7-1 查找成绩并折算后输出 (10 分)
-文件：期中考试成绩.txt中有若干学生的姓名和数学期中考试成绩。 
-Smith 67 Anderson 75 Lewis 83 Cook 58 David 96 
-请你编写一个简单的查询成绩程序，当从键盘输入一个姓名时查找到他的数学期中考试分数并按照21%折算后输出。
-如果没找到则显示Not found. 由于目前的OJ系统暂时不能支持用户读入文件，我们编写程序从键盘输入文件中的姓名和成绩，
-当输入的名字为noname时，表示结束。noname后面有一个名字，需要查找其成绩。
+// 7-1 查找成绩并折算后输出 (10 分)
+// 文件：期中考试成绩.txt中有若干学生的姓名和数学期中考试成绩。 
+// Smith 67 Anderson 75 Lewis 83 Cook 58 David 96 
+// 请你编写一个简单的查询成绩程序，当从键盘输入一个姓名时查找到他的数学期中考试分数并按照21%折算后输出。
+// 如果没找到则显示Not found. 由于目前的OJ系统暂时不能支持用户读入文件，我们编写程序从键盘输入文件中的姓名和成绩，
+// 当输入的名字为noname时，表示结束。noname后面有一个名字，需要查找其成绩。
 
-输入格式:
-Smith 67
-Anderson 75
-Lewis 83
-Cook 58
-David 96
-noname （表示结束）
-Bill
-输出格式:
-Not found.
-输入样例:
-Smith  67
-Anderson  75
-Lewis  83
-Cook  58
-David  96
-noname
-Lewis
-输出样例:
-17.43
+// 输入格式:
+// Smith 67
+// Anderson 75
+// Lewis 83
+// Cook 58
+// David 96
+// noname （表示结束）
+// Bill
+// 输出格式:
+// Not found.
+// 输入样例:
+// Smith  67
+// Anderson  75
+// Lewis  83
+// Cook  58
+// David  96
+// noname
+// Lewis
+// 输出样例:
+// 17.43
 #include<iostream>
 #include<string>
 #include<map>
