@@ -1,21 +1,21 @@
-// #include <iostream>
-// #include <string>
-// using namespace std;
+#include <iostream>
+#include <string>
+using namespace std;
 
-// void filename(const string & str1)
-// {
-//     int found = str.find_last_of("/\\");
-//     cout<<str.substr(0,found)<<endl;
-//     cout<<str.substr(found+1)<<endl;
-// }
+void filename(const string & str1)
+{
+    int found = str1.find_last_of("/\\"); //从后往前找用find_last_of()
+    cout<<str.substr(0,found)<<endl;
+    cout<<str.substr(found+1)<<endl;
+}
 
-// int main(int argc, char const *argv[])
-// {
-//     string str1;
-//     getline(cin,str1);
-//     filename(str1); 
-//     return 0;
-// }
+int main(int argc, char const *argv[])
+{
+    string str1;
+    getline(cin,str1);
+    filename(str1); 
+    return 0;
+}
 
 #include <iostream>
 #include <iostream>
