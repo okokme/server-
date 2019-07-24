@@ -1,10 +1,21 @@
 #include "Eventloop.h"
-__thread Eventloop* t_loopInThisThread = 0;
-Eventloop::Eventloop():looping_(false)
+
+void Eventloop::Loop()
 {
-   // threadId_ = gettid();
-   threadId_ = std::this_thread::get_id();
-
-
+    while(!quit_)
+    {
+        //初始化epoller_
+        int nevents = epoller_->  ;//--------------------这里没写完
+        if(nevents == 0) {
+            //等待 超时 踢
+        }
+        else if(nevents > 0) {
+                while(!activeChannels_.empty())
+                {
+                    activeChannels_.front()->handleEvent();
+                    activeChannels_.pop_back();
+                }
+        }
+    }
 
 }

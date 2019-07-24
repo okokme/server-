@@ -1,20 +1,25 @@
-#pragma
+#pragma once
 
 #include "Noncopyable.h"
+#include "Channel.h"
+#include "Epoll.h"
 #include <thread>
+#include <vector>
+#include <map>
 class Eventloop : Noncopyable {
 public:
-    Eventloop();
+    Eventloop(Epoller *poller):epoller_(poller),quit_(false) { }
     ~Eventloop();
     void Loop();
-    void assertInLoopThread() //检查当前线程是否已经创建了其他EventLoop对象
-    {
-        if(!isInLoopThread())
-        abortNotInLoopThread();
-    }
-    bool isInLoopThread() const { return threadId_ == std::this_thread::get_id();  }
+    Epoller* get_epoller() { return epoller_;}
+    
+//  typedef std::vector<Channel*> ChannelList;
 private:
-    void abortNotInLoopThread();
-    bool looping_; /*atomic*/
-    const pid_t threadId_;
+    typedef std::shared_ptr<Channel> sChannel_;
+    Epoller *epoller_;
+    std::vector<sChannel_> activeChannels_;
+//  std::map<int, Channel*> channelMap_;
+    std::map<int, sChannel_> ChannelMap_;
+    bool quit_; /*atomic*/
+
 };
