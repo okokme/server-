@@ -1,20 +1,25 @@
-#pragma
+#pragma once
 
 #include "Channel.h"
 #include <vector>
 #include <map>
 #include <memory>
+#include <unistd.h>
 #include <assert.h>
 #include <sys/epoll.h>
 class Channel;
 class Epoller {
 public:
-    Epoller();
-    ~Epoller();
+    Epoller() {
+        epfd_ = epoll_create(1);
+    }
+    ~Epoller() {
+        close(epfd_);
+    }
     int add(int fd, int event);
     int del(int fd);
     int mod(int fd, int event);
-    int poll();
+    int poll(int timeout, std::vector<std::shared_ptr<Channel>>& active_channel);
     void insert_Channel(std::pair<int,std::shared_ptr<Channel>> t) { Channel_list.insert(t); }
     int del_Channel(int fd) { 
         auto pos = Channel_list.find(fd);
