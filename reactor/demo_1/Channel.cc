@@ -1,19 +1,24 @@
 #include "Channel.h"
 
+class Eventloop;
  
-Channel::Channel(Eventloop* loop, int fd, int event):loop_(loop), fd_(fd), start_event(event) { }
+Channel::Channel(Eventloop* loop, int fd, int event):loop_(loop), fd_(fd), events_(event) { }
 
 void Channel::handleEvent()
 {
     if(revents_ == EPOLLIN)
     {
         std::cout<<"handleEvent EPOLLIN fd = "<<fd_<<std::endl;
-        readCallback_();
+        if(readCallback_) //如果setreadCallback后 readCallback为真，否则为假不执行下面语句
+            readCallback_(); //读事件由用户自己负责 因为bind参数不同，有不同触发的readcb 一个是listenfd的readcb 一个是读事件的readcb 
+        //readCallback_();
     }
     if(revents_ == EPOLLOUT)
     {
         std::cout<<"handleEvent EPOLLOUT fd = "<<fd_<<std::endl;
-        writeCallback_();
+        handleWrite(); //send后有剩余数据需要写道缓冲区 才会触发handlewrite //写事件由loop自动负责
+        //  writeCallback_(); 
+       
     }
     if(revents_ == EPOLLERR)
     {
@@ -22,14 +27,28 @@ void Channel::handleEvent()
     }
 }
     
-void Channel::handleaccept() {
+void Channel::handleaccept() {        //-----------------没写完
     //int  accept(int  s,  struc8ik t  sockaddr  *addr, socklen_t *addrlen);
     struct sockaddr a;  
     socklen_t len = sizeof(a);      
-    int fd = accept(fd_, (struct sockaddr *)&a, &len);
-    std::shared_ptr<Channel> listen_cha ( new Channel(loop_, fd, EPOLLIN | EPOLLERR));
+    int fd = ::accept(fd_, (struct sockaddr *)&a, &len);         
+    assert(fd >0 );
+    std::shared_ptr<Channel> accept_cha ( new Channel(loop_, fd, EPOLLIN | EPOLLERR));
     
+    accept_cha->set_nonblock();
+    accept_cha->setReadCallback( std::bind(&Channel::handleRead, accept_cha)); //std::function<void()>  ////////不知道该bind啥
+//    accept_cha->setMessageCallback(messageCallback_);
+
+    loop_->addChannel(accept_cha.get());
+   // loop_->get_epoller()->insert_Channel( std::make_pair(fd,accept_cha) ); //是不是可以写成loop_->addChannel();
+    
+   // loop_->get_epoller()->add(accept_cha->fd,accept_cha->get_events()); //添加新channel到epollevents中
+    //接受完处理事件是应该设置回调了吗？
+}
+
+void Channel::handleRead() {
+    //read
+     // ssize_t read(int fd, void *buf, size_t count);
 
 
 }
-    

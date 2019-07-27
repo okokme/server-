@@ -6,11 +6,17 @@
 #include <thread>
 #include <vector>
 #include <map>
+
+class Epoller;
+class Channel;
 class Eventloop : Noncopyable {
 public:
     Eventloop(Epoller *poller):epoller_(poller),quit_(false) { }
     ~Eventloop();
     void Loop();
+    void changeEvent(int fd, int events) { epoller_->mod(fd, events); }
+    void addChannel(Channel* chl); ///向loop中添加一个新的Channel
+    void delChannel(Channel* chl);
     Epoller* get_epoller() { return epoller_;}
     
 //  typedef std::vector<Channel*> ChannelList;

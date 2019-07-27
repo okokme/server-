@@ -1,6 +1,7 @@
 #pragma once
 
 #include "Channel.h"
+#include <iostream>
 #include <vector>
 #include <map>
 #include <memory>

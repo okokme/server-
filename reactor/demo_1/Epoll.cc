@@ -29,8 +29,9 @@ int Epoller::poll(int timeout,std::vector<std::shared_ptr<Channel>>& active_chan
         {
             auto it = Channel_list.find(events[i].data.fd);
             assert(it!=Channel_list.end());
-            it->second->set_revents(events[i].events);//第一次设置事件-------------------------set_event未实现啊
+            it->second->set_revents(events[i].events);//将内核事件表中的此事件 传递给参数Channel类中的revent 后面内核有什么事件返回直接读revent
             active_channel.push_back(it->second);
+            nevents--;
         }
 
     }
