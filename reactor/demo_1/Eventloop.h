@@ -11,12 +11,12 @@ class Epoller;
 class Channel;
 class Eventloop : Noncopyable {
 public:
-    Eventloop(Epoller *poller):epoller_(poller),quit_(false) { }
-    ~Eventloop();
+    Eventloop(Epoller *poller):epoller_(poller),quit_(false) {printf("in EventLoop::构造函数\n"); }
+    ~Eventloop() { }
     void Loop();
-    void changeEvent(int fd, int events) { epoller_->mod(fd, events); }
-    void addChannel(Channel* chl); ///向loop中添加一个新的Channel
-    void delChannel(Channel* chl);
+//    void changeevent(int fd, int events) { epoller_->mod(fd, events);}
+    void addChannel(std::shared_ptr<Channel> chl); ///向loop中添加一个新的Channel
+    void delChannel(std::shared_ptr<Channel> chl);
     Epoller* get_epoller() { return epoller_;}
     
 //  typedef std::vector<Channel*> ChannelList;
