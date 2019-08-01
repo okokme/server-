@@ -1,5 +1,6 @@
 #include "buffer.h"
 
+const char Buffer::crlf[] = "\r\n";
 int Buffer::readfd(int fd)
 {
     //ssize_t readv(int filedes, const struct iovec *iov, int iovcnt);
@@ -23,6 +24,5 @@ int Buffer::readfd(int fd)
             append(extrabuf, n-writen);
         }
     }
-    return n;
-    
+    return n; 
 }

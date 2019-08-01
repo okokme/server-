@@ -10,6 +10,7 @@ class Buffer {
 public:
     Buffer(): buf_(INIT_SIZE) { } //先给缓冲区赋初值，给一个足够大的缓冲区
     static const size_t INIT_SIZE = 1024;
+    static const char crlf[];
     char *begin() { return &*buf_.begin(); }
     char *peek() { return begin() + readindex_; }
     size_t prependable() { return readindex_; }
@@ -57,6 +58,13 @@ public:
         std::swap(writeindex_, buffer_.writeindex_);
     }
     int readfd(int fd);
+    //返回c风格字符串
+    char *c_str()
+    {
+        append("\0", 1);
+        writeindex_--;
+        return peek();
+    }
 
 private:
     std::vector<char> buf_;
