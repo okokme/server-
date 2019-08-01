@@ -1,0 +1,3 @@
+/home/k/server-/reactor/demo_1/build/CMakeFiles/rebuild_cache.dir
+/home/k/server-/reactor/demo_1/build/CMakeFiles/muduo.dir
+/home/k/server-/reactor/demo_1/build/CMakeFiles/edit_cache.dir

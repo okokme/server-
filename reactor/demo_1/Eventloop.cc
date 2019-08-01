@@ -10,10 +10,11 @@ void Eventloop::addChannel(std::shared_ptr<Channel> chl) {
    
 }
 void Eventloop::delChannel(std::shared_ptr<Channel> chl) {
-    printf("in EventLoop::delChannel\n");
-    epoller_->del(chl->fd());
+    printf("in EventLoop::delChannelf", chl->fd());
     epoller_->del_Channel(chl->fd());
 }
+ void Eventloop::changeevent(int fd, int events) { epoller_->mod(fd, events);}
+
 void Eventloop::Loop() {
     printf("in EventLoop::Loop\n");
     while(!quit_)

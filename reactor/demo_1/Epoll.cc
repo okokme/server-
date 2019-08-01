@@ -1,8 +1,10 @@
 #include "Epoll.h"
 #include "Channel.h"
+#include "Eventloop.h"
+#include <errno.h>
 
 int Epoller::add(int fd, int event) {
-    printf("in Epoll::add\n");
+    printf("in Epoll::add, fd = %d\n", fd);
     struct epoll_event ev;
     ev.data.fd = fd;
     ev.events = event;
@@ -22,10 +24,13 @@ int Epoller::mod(int fd, int event) {
     assert(epoll_ctl(epfd_,EPOLL_CTL_MOD,fd,&ev) != -1);
 }
 
-int Epoller::del(int fd) {
-    printf("in Epoll::del\n");
-    
-    assert(epoll_ctl(epfd_,EPOLL_CTL_DEL,fd,0) != -1);
+int Epoller::del(int fd) {  
+    if (epoll_ctl(epfd_,EPOLL_CTL_DEL,fd,0) < 0) {
+        perror("del err:");
+        std::cout << "errno = " << errno << "\n"; 
+        return -1;       
+    }
+    close(fd);
 }
  
 int Epoller::poll(int timeout,std::vector<std::shared_ptr<Channel>>& active_channel)
@@ -33,7 +38,7 @@ int Epoller::poll(int timeout,std::vector<std::shared_ptr<Channel>>& active_chan
    // printf("in Epoll::poll\n");
     
     int nevents = epoll_wait(epfd_, &events[0], events.size(), timeout);
-   // std::cout<<"nevents = "<<nevents<<std::endl;
+    std::cout << "nevents = " << nevents << std::endl;
      
     if(nevents > 0)   
     {

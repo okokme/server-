@@ -2,7 +2,7 @@
 
 #include "Noncopyable.h"
 #include "Channel.h"
-#include "Epoll.h"
+//#include "Epoll.h"
 #include <thread>
 #include <vector>
 #include <map>
@@ -14,7 +14,7 @@ public:
     Eventloop(Epoller *poller):epoller_(poller),quit_(false) {printf("in EventLoop::构造函数\n"); }
     ~Eventloop() { }
     void Loop();
-//    void changeevent(int fd, int events) { epoller_->mod(fd, events);}
+    void changeevent(int fd, int events);// { epoller_->mod(fd, events);}
     void addChannel(std::shared_ptr<Channel> chl); ///向loop中添加一个新的Channel
     void delChannel(std::shared_ptr<Channel> chl);
     Epoller* get_epoller() { return epoller_;}
