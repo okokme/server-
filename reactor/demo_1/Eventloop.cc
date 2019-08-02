@@ -2,9 +2,8 @@
 
 void Eventloop::addChannel(std::shared_ptr<Channel> chl) { 
     printf("in EventLoop::addChannel\n");
-     // loop_->get_epoller()->insert_Channel( std::make_pair(fd,accept_cha) ); //是不是可以写成loop_->addChannel();
-   // loop_->get_epoller()->add(accept_cha->fd,accept_cha->get_events()); //添加新channel到epollevents中
     chl->enableRead();
+    std::cout<<"--------------------------------chl->fd()="<<chl->fd()<<std::endl;
     epoller_->insert_Channel(std::make_pair(chl->fd(),chl));
     epoller_->add(chl->fd(), chl->get_events());
    
@@ -29,7 +28,7 @@ void Eventloop::Loop() {
         else if(nevents > 0) {
                 while(!activeChannels_.empty())
                 {
-                    activeChannels_.front()->handleEvent();
+                    activeChannels_.back()->handleEvent();
                     activeChannels_.pop_back();
                 }
         }

@@ -3,9 +3,9 @@
 #include <memory>
 #include <string.h>
 #include <poll.h>
-//class Eventloop;
- 
-Channel::Channel(Eventloop* loop, int fd, int event):loop_(loop), fd_(fd), events_(event) { printf("in Channel::构造Channel\n");}
+#include <errno.h>
+
+Channel::Channel(Eventloop* loop, int event):loop_(loop),events_(event) { printf("in Channel::构造Channel\n");}
 int Channel::SENDING = 001;
 void Channel::changeEvent() { loop_->changeevent(fd(), get_events());}
 
@@ -23,36 +23,28 @@ void Channel::handleEvent()
     }
     if(revents_ & EPOLLIN)
     {
-        std::cout<<"handleEvent EPOLLIN fd = "<<fd_<<std::endl;
+        std::cout<<"handleEvent EPOLLIN fd = "<<fd()<<std::endl;
         if(readCallback_) //如果setreadCallback后 readCallback为真，否则为假不执行下面语句
             readCallback_(); //读事件由用户自己负责 因为bind参数不同，有不同触发的readcb 一个是listenfd的readcb 一个是读事件的readcb 
       return;
     }
     if(revents_ & EPOLLOUT)
     {
-        std::cout<<"handleEvent EPOLLOUT fd = "<<fd_<<std::endl;
+        std::cout<<"handleEvent EPOLLOUT fd = "<<fd()<<std::endl;
    //     handleWrite(); //send后有剩余数据需要写道缓冲区 才会触发handlewrite //写事件由loop自动负责
     }
 }
     
 void Channel::handleaccept() {        //-----------------没写完
-    //int  accept(int  s,  struc8ik t  sockaddr  *addr, socklen_t *addrlen);
-    struct sockaddr a;  
-    socklen_t len = sizeof(a);      
-    int fd = ::accept(fd_, (struct sockaddr *)&a, &len);   
-    //std::cout<<"accept a new fd = "<<fd<<std::endl;     
-    assert(fd >0 );
-    std::shared_ptr<Channel> accept_cha ( new Channel(loop_, fd, EPOLLIN | EPOLLERR));
+    int connfd = getsocket().acceptConnect();
+    std::shared_ptr<Channel> accept_cha ( new Channel(loop_, EPOLLIN | EPOLLERR));
+    accept_cha->getsocket().setFd(connfd);
     
-    accept_cha->set_nonblock();
     accept_cha->setReadCallback( std::bind(&Channel::handleRead, accept_cha)); //std::function<void()>  ////////不知道该bind啥
     accept_cha->setMessageCallback(messageCallback_);
     accept_cha->setErrorCallback(std::bind(&Channel::handleError, accept_cha));
     
     loop_->addChannel(accept_cha);
-   // loop_->get_epoller()->insert_Channel( std::make_pair(fd,accept_cha) ); //是不是可以写成loop_->addChannel();
-   // loop_->get_epoller()->add(accept_cha->fd,accept_cha->get_events()); //添加新channel到epollevents中
-    //接受完处理事件是应该设置回调了吗？
 }
 
 void Channel::handleRead() {
@@ -66,9 +58,7 @@ void Channel::handleRead() {
     if(n > 0)
     {
         if(messageCallback_){
-           
-            
-             messageCallback_(shared_from_this(), input_); 
+             messageCallback_(shared_from_this(), input_); //之前的bug出在setmessagecallback使用了引用
              ////这里有问题 不会改 只容许在先前共享的对象，即 std::shared_ptr 所管理的对象上调用 shared_from_this 。（特别是不能在构造 *this 期间 shared_from_this 。）
         }
               
@@ -82,13 +72,6 @@ void Channel::handleRead() {
     {
         handleError();
     }
-    
-  //  char buf[4096];
-    
-   // read(fd_, buf, sizeof(buf));
-   // std::cout<<"------------"<<buf<<std::endl;
-    //read
-     // ssize_t read(int fd, void *buf, size_t count);
 }
 
 void Channel::handleClose()

@@ -8,7 +8,13 @@ int Epoller::add(int fd, int event) {
     struct epoll_event ev;
     ev.data.fd = fd;
     ev.events = event;
-    assert(epoll_ctl(epfd_,EPOLL_CTL_ADD,fd,&ev) != -1);
+    if(epoll_ctl(epfd_,EPOLL_CTL_ADD,fd,&ev) <0 )
+    {
+        perror("add err:");
+        std::cout << "errno = " << errno << "\n"; 
+        return -1;
+    }
+
     if (Channel_list.size() >= INIT_SIZE) {
         INIT_SIZE *= 2;
         events.resize(INIT_SIZE);
@@ -30,7 +36,7 @@ int Epoller::del(int fd) {
         std::cout << "errno = " << errno << "\n"; 
         return -1;       
     }
-    close(fd);
+    //close(fd); //close(fd)不应该在这里调用 应该在socket类里关
 }
  
 int Epoller::poll(int timeout,std::vector<std::shared_ptr<Channel>>& active_channel)

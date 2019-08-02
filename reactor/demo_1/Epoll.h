@@ -41,7 +41,7 @@ public:
         {
             Channel_list.erase(pos);
             del(fd);
-            std::cout<<"del channel from channel list ok"<<std::endl;
+            std::cout<<"fd = "<<fd<<"del channel from channel list ok"<<std::endl;
             return 0;
         }
 

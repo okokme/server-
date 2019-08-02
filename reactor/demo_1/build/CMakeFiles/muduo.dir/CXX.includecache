@@ -17,6 +17,8 @@ string.h
 -
 poll.h
 -
+errno.h
+-
 
 /home/k/server-/reactor/demo_1/Channel.h
 Noncopyable.h
@@ -25,6 +27,8 @@ Epoll.h
 /home/k/server-/reactor/demo_1/Epoll.h
 buffer.h
 /home/k/server-/reactor/demo_1/buffer.h
+Socket.h
+/home/k/server-/reactor/demo_1/Socket.h
 cstdio
 -
 cstdlib
@@ -111,6 +115,30 @@ map
 /home/k/server-/reactor/demo_1/Noncopyable.h
 
 /home/k/server-/reactor/demo_1/Socket.cc
+Socket.h
+/home/k/server-/reactor/demo_1/Socket.h
+
+/home/k/server-/reactor/demo_1/Socket.h
+Noncopyable.h
+/home/k/server-/reactor/demo_1/Noncopyable.h
+memory
+-
+unistd.h
+-
+fcntl.h
+-
+signal.h
+-
+sys/types.h
+-
+sys/socket.h
+-
+netinet/in.h
+-
+assert.h
+-
+arpa/inet.h
+-
 
 /home/k/server-/reactor/demo_1/buffer.cc
 buffer.h
@@ -139,6 +167,8 @@ buffer.h
 /home/k/server-/reactor/demo_1/buffer.h
 Coder.h
 /home/k/server-/reactor/demo_1/Coder.h
+Socket.h
+/home/k/server-/reactor/demo_1/Socket.h
 functional
 -
 sys/types.h

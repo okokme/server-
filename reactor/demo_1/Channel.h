@@ -4,6 +4,7 @@
 //#include "Eventloop.h"
 #include "Epoll.h"
 #include "buffer.h"
+#include "Socket.h"
 #include <cstdio>
 #include <cstdlib>
 #include <assert.h>
@@ -19,7 +20,7 @@
 //#define SENDING 001
 
 class Eventloop;
-//class Epoller;
+
 class Channel:Noncopyable , public std::enable_shared_from_this<Channel>{
 public:
     typedef std::function<void()> EventCallback;
@@ -27,7 +28,7 @@ public:
     typedef std::function<void(std::shared_ptr<Channel>)> WritecompleteCallback;
     
     static int SENDING ;
-    Channel(Eventloop* loop, int fd, int event); //这个fd是什么？ 是我服务器的socket 某个Channel对象负责一个fd的IO事件分发，但并不拥有这个fd 也不会在析构的时候关闭这个fd
+    Channel(Eventloop* loop, int event); //这个fd是什么？ 是我服务器的socket 某个Channel对象负责一个fd的IO事件分发，但并不拥有这个fd 也不会在析构的时候关闭这个fd
     
     void setReadCallback(const EventCallback cb) { printf("in Channel::setReadCallback\n");readCallback_ = cb; }
     void setWriteCallback(const EventCallback cb) { printf("in Channel::setWriteCallback\n");writeCallback_ = cb; }
@@ -38,7 +39,9 @@ public:
     EventCallback getReadCallback() { return readCallback_; }
     EventCallback getWriteCallback() { return writeCallback_; }
     EventCallback getErrorCallback() { return errorCallback_;  }
-
+    
+    Socket& getsocket() { return socket_; }
+    
     void handleEvent();
     void handleaccept();
     void handleRead();
@@ -54,24 +57,17 @@ public:
     int sendmssage(const char* s, size_t len);
     int recvmessage();
 
-    int fd() const { return fd_; }
-
+    int fd() { return socket_.getfd(); }
+   
     void set_revents(int revt) { printf("in Channel::set_revents\n");revents_ = revt; }//内核事件表给revents_
     int get_revents() const { return revents_; }
     int get_events() const { return events_; }
-
-    int set_nonblock() { 
-       int old_option = fcntl(fd(), F_GETFL);
-       int new_option = old_option | O_NONBLOCK;
-       fcntl(fd(), F_SETFL, new_option);
-       return old_option;
-    }
 
     int isReading() { return events_ & EPOLLIN; }
     int isWriting() { return events_ & EPOLLOUT; }
 private:
         Eventloop *loop_;
-        int fd_;
+        Socket socket_;
         int events_ = 0;
         int revents_ = 0;
         int status_ = 0;

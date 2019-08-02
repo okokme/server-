@@ -6,6 +6,7 @@ CMakeFiles/muduo.dir/Channel.cc.o: ../Channel.h
 CMakeFiles/muduo.dir/Channel.cc.o: ../Epoll.h
 CMakeFiles/muduo.dir/Channel.cc.o: ../Eventloop.h
 CMakeFiles/muduo.dir/Channel.cc.o: ../Noncopyable.h
+CMakeFiles/muduo.dir/Channel.cc.o: ../Socket.h
 CMakeFiles/muduo.dir/Channel.cc.o: ../buffer.h
 
 CMakeFiles/muduo.dir/Coder.cc.o: ../Coder.cc
@@ -15,6 +16,7 @@ CMakeFiles/muduo.dir/Epoll.cc.o: ../Epoll.cc
 CMakeFiles/muduo.dir/Epoll.cc.o: ../Epoll.h
 CMakeFiles/muduo.dir/Epoll.cc.o: ../Eventloop.h
 CMakeFiles/muduo.dir/Epoll.cc.o: ../Noncopyable.h
+CMakeFiles/muduo.dir/Epoll.cc.o: ../Socket.h
 CMakeFiles/muduo.dir/Epoll.cc.o: ../buffer.h
 
 CMakeFiles/muduo.dir/Eventloop.cc.o: ../Channel.h
@@ -22,9 +24,12 @@ CMakeFiles/muduo.dir/Eventloop.cc.o: ../Epoll.h
 CMakeFiles/muduo.dir/Eventloop.cc.o: ../Eventloop.cc
 CMakeFiles/muduo.dir/Eventloop.cc.o: ../Eventloop.h
 CMakeFiles/muduo.dir/Eventloop.cc.o: ../Noncopyable.h
+CMakeFiles/muduo.dir/Eventloop.cc.o: ../Socket.h
 CMakeFiles/muduo.dir/Eventloop.cc.o: ../buffer.h
 
+CMakeFiles/muduo.dir/Socket.cc.o: ../Noncopyable.h
 CMakeFiles/muduo.dir/Socket.cc.o: ../Socket.cc
+CMakeFiles/muduo.dir/Socket.cc.o: ../Socket.h
 
 CMakeFiles/muduo.dir/buffer.cc.o: ../buffer.cc
 CMakeFiles/muduo.dir/buffer.cc.o: ../buffer.h
@@ -34,6 +39,7 @@ CMakeFiles/muduo.dir/test1.cc.o: ../Coder.h
 CMakeFiles/muduo.dir/test1.cc.o: ../Epoll.h
 CMakeFiles/muduo.dir/test1.cc.o: ../Eventloop.h
 CMakeFiles/muduo.dir/test1.cc.o: ../Noncopyable.h
+CMakeFiles/muduo.dir/test1.cc.o: ../Socket.h
 CMakeFiles/muduo.dir/test1.cc.o: ../buffer.h
 CMakeFiles/muduo.dir/test1.cc.o: ../test1.cc
 

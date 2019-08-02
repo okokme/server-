@@ -3,23 +3,28 @@
 #include "Noncopyable.h"
 #include <memory>
 #include <unistd.h>
+#include <fcntl.h>
+#include <signal.h>
 #include <sys/types.h>
 #include <sys/socket.h>
-#include <linux/in.h>
-
+//#include <linux/in.h>
+#include <netinet/in.h>
+#include <assert.h>
+#include <arpa/inet.h>
+#define LISTENQ 1024
 class Socket : Noncopyable {
 public:
-    Socket() { 
-        sockfd_ = socket(AF_INET,SOCK_STREAM,0);
-    }
-    void bind() {
-        struct sockaddr_in addr;
-
-
-    }
+    Socket() { }
+    void setReuseAddr();
+    int setNonblock();
+    void bind();
+    void listen();
+    void startConnect();
+    void setFd( int fd ) { sockfd_ = fd; }
+    int getfd() { return sockfd_; }
+    int acceptConnect();
     ~Socket() { close(sockfd_); }
 
 private:
     int sockfd_;
-
-}
+};
