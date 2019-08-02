@@ -7,7 +7,6 @@
 #include <signal.h>
 #include <sys/types.h>
 #include <sys/socket.h>
-//#include <linux/in.h>
 #include <netinet/in.h>
 #include <assert.h>
 #include <arpa/inet.h>
