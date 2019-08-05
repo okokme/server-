@@ -34,12 +34,14 @@ CMakeFiles/muduo.dir/Socket.cc.o: ../Socket.h
 CMakeFiles/muduo.dir/buffer.cc.o: ../buffer.cc
 CMakeFiles/muduo.dir/buffer.cc.o: ../buffer.h
 
+CMakeFiles/muduo.dir/test1.cc.o: ../Acceptor.h
 CMakeFiles/muduo.dir/test1.cc.o: ../Channel.h
 CMakeFiles/muduo.dir/test1.cc.o: ../Coder.h
 CMakeFiles/muduo.dir/test1.cc.o: ../Epoll.h
 CMakeFiles/muduo.dir/test1.cc.o: ../Eventloop.h
 CMakeFiles/muduo.dir/test1.cc.o: ../Noncopyable.h
 CMakeFiles/muduo.dir/test1.cc.o: ../Socket.h
+CMakeFiles/muduo.dir/test1.cc.o: ../TcpServer.h
 CMakeFiles/muduo.dir/test1.cc.o: ../buffer.h
 CMakeFiles/muduo.dir/test1.cc.o: ../test1.cc
 

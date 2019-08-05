@@ -28,7 +28,7 @@ public:
     typedef std::function<void(std::shared_ptr<Channel>)> WritecompleteCallback;
     
     static int SENDING ;
-    Channel(Eventloop* loop, int event); //这个fd是什么？ 是我服务器的socket 某个Channel对象负责一个fd的IO事件分发，但并不拥有这个fd 也不会在析构的时候关闭这个fd
+    Channel(Eventloop* loop, int fd, int event); //这个fd是什么？ 是我服务器的socket 某个Channel对象负责一个fd的IO事件分发，但并不拥有这个fd 也不会在析构的时候关闭这个fd
     
     void setReadCallback(const EventCallback cb) { printf("in Channel::setReadCallback\n");readCallback_ = cb; }
     void setWriteCallback(const EventCallback cb) { printf("in Channel::setWriteCallback\n");writeCallback_ = cb; }
@@ -40,7 +40,7 @@ public:
     EventCallback getWriteCallback() { return writeCallback_; }
     EventCallback getErrorCallback() { return errorCallback_;  }
     
-    Socket& getsocket() { return socket_; }
+//    Socket& getsocket() { return socket_; }
     
     void handleEvent();
     void handleaccept();
@@ -52,12 +52,13 @@ public:
     void enableRead() { printf("in Channel::enableRead\n");events_ |= EPOLLIN; }
     void enableWrite() { events_ |= EPOLLOUT; changeEvent();} //这个设计感觉非常巧妙
     void disableWrite() { events_ &= ~EPOLLOUT; changeEvent();} //忽略关注写事件
-    void changeEvent();// { loop_->changeevent(fd(), get_events());}
+    void changeEvent();
 
-    int sendmssage(const char* s, size_t len);
+  //  int sendmssage(const char* s, size_t len);
+    int sendmssage();  
     int recvmessage();
 
-    int fd() { return socket_.getfd(); }
+    int fd() { return fd_;}//socket_.getfd(); }
    
     void set_revents(int revt) { printf("in Channel::set_revents\n");revents_ = revt; }//内核事件表给revents_
     int get_revents() const { return revents_; }
@@ -67,10 +68,12 @@ public:
     int isWriting() { return events_ & EPOLLOUT; }
 private:
         Eventloop *loop_;
-        Socket socket_;
+ //       Socket socket_;
         int events_ = 0;
         int revents_ = 0;
         int status_ = 0;
+        
+        int fd_;
 
         Buffer input_;
         Buffer output_;

@@ -1,5 +1,11 @@
 #include "Eventloop.h"
 
+ Eventloop::Eventloop():quit_(false) {      
+        epoller_ = new Epoller;
+        printf("in EventLoop::构造函数\n"); }
+
+ Eventloop::~Eventloop() { delete epoller_; }
+
 void Eventloop::addChannel(std::shared_ptr<Channel> chl) { 
     printf("in EventLoop::addChannel\n");
     chl->enableRead();
@@ -33,5 +39,4 @@ void Eventloop::Loop() {
                 }
         }
     }
-
 }

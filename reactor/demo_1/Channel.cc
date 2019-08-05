@@ -5,7 +5,7 @@
 #include <poll.h>
 #include <errno.h>
 
-Channel::Channel(Eventloop* loop, int event):loop_(loop),events_(event) { printf("in Channel::构造Channel\n");}
+Channel::Channel(Eventloop* loop, int fd, int event):loop_(loop),fd_(fd),events_(event) { printf("in Channel::构造Channel\n");}
 int Channel::SENDING = 001;
 void Channel::changeEvent() { loop_->changeevent(fd(), get_events());}
 
@@ -35,23 +35,22 @@ void Channel::handleEvent()
     }
 }
     
-void Channel::handleaccept() {        //-----------------没写完
-    int connfd = getsocket().acceptConnect();
-    std::shared_ptr<Channel> accept_cha ( new Channel(loop_, EPOLLIN | EPOLLERR));
-    accept_cha->getsocket().setFd(connfd);
+// void Channel::handleaccept() {        //-----------------没写完
+//     int connfd = getsocket().acceptConnect();
+//     std::shared_ptr<Channel> accept_cha ( new Channel(loop_, EPOLLIN | EPOLLERR));
+//     accept_cha->.setFd(connfd);
     
-    accept_cha->setReadCallback( std::bind(&Channel::handleRead, accept_cha)); //std::function<void()>  ////////不知道该bind啥
-    accept_cha->setMessageCallback(messageCallback_);
-    accept_cha->setErrorCallback(std::bind(&Channel::handleError, accept_cha));
+//     accept_cha->setReadCallback( std::bind(&Channel::handleRead, accept_cha)); //std::function<void()>  ////////不知道该bind啥
+//     accept_cha->setMessageCallback(messageCallback_);
+//     accept_cha->setErrorCallback(std::bind(&Channel::handleError, accept_cha));
     
-    loop_->addChannel(accept_cha);
-}
+//     loop_->addChannel(accept_cha);
+// }
 
 void Channel::handleRead() {
     ssize_t n = input_.readfd(fd());
     std::cout << "handleRead() fd = " << fd() << ", read: " << input_.c_str() << "\n";
-            
-            input_.retrieveAll();
+         //    input_.retrieveAll();
             //const char *s = "jfskldjfaslkfjsadklf sdlf,s alfdjsl fajdf lskfj slafjsald fjsldf s";
             //write(fd(), s, strlen(s));
             //return;
@@ -61,7 +60,7 @@ void Channel::handleRead() {
              messageCallback_(shared_from_this(), input_); //之前的bug出在setmessagecallback使用了引用
              ////这里有问题 不会改 只容许在先前共享的对象，即 std::shared_ptr 所管理的对象上调用 shared_from_this 。（特别是不能在构造 *this 期间 shared_from_this 。）
         }
-              
+       
     }
     else if(n == 0)
     {
@@ -88,4 +87,12 @@ void Channel::handleClose()
 void Channel::handleError()
 {
     handleClose();
+}
+
+int Channel::sendmssage()
+{
+    char buf[1024];
+    std::cout<<"on send message"<<std::endl;
+    const char*s = "hello my name is huhu\n";
+    write(fd_, s, strlen(s));
 }

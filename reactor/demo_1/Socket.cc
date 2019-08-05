@@ -15,7 +15,7 @@ void Socket::bind() {
     
     struct sockaddr_in addr;
     addr.sin_family = AF_INET;
-    addr.sin_port = htons(8888);
+    addr.sin_port = htons(port_);
     addr.sin_addr.s_addr = htonl(INADDR_ANY); //("127.0.0.1")inet_addr("127.0.0.1");
     socklen_t len = sizeof(addr);
     assert( ::bind( sockfd_, (struct sockaddr*)&addr, len) >=0 );

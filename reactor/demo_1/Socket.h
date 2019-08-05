@@ -20,10 +20,12 @@ public:
     void listen();
     void startConnect();
     void setFd( int fd ) { sockfd_ = fd; }
+    void setPort( int port ) { port_ = port; }
     int getfd() { return sockfd_; }
     int acceptConnect();
     ~Socket() { close(sockfd_); }
 
 private:
     int sockfd_;
+    int port_;
 };

@@ -2,7 +2,7 @@
 
 #include "Noncopyable.h"
 #include "Channel.h"
-//#include "Epoll.h"
+#include "Epoll.h"
 #include <thread>
 #include <vector>
 #include <map>
@@ -11,8 +11,13 @@ class Epoller;
 class Channel;
 class Eventloop : Noncopyable {
 public:
-    Eventloop(Epoller *poller):epoller_(poller),quit_(false) {printf("in EventLoop::构造函数\n"); }
-    ~Eventloop() { }
+  //  Eventloop(Epoller *poller):epoller_(poller),quit_(false) {
+    // Eventloop():quit_(false) {      
+    //     epoller_ = new Epoller;
+    //     printf("in EventLoop::构造函数\n"); }
+
+    Eventloop();
+    ~Eventloop(); 
     void Loop();
     void changeevent(int fd, int events);// { epoller_->mod(fd, events);}
     void addChannel(std::shared_ptr<Channel> chl); ///向loop中添加一个新的Channel

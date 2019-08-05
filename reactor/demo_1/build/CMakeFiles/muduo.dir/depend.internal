@@ -35,11 +35,13 @@ CMakeFiles/muduo.dir/buffer.cc.o
  /home/k/server-/reactor/demo_1/buffer.cc
  /home/k/server-/reactor/demo_1/buffer.h
 CMakeFiles/muduo.dir/test1.cc.o
+ /home/k/server-/reactor/demo_1/Acceptor.h
  /home/k/server-/reactor/demo_1/Channel.h
  /home/k/server-/reactor/demo_1/Coder.h
  /home/k/server-/reactor/demo_1/Epoll.h
  /home/k/server-/reactor/demo_1/Eventloop.h
  /home/k/server-/reactor/demo_1/Noncopyable.h
  /home/k/server-/reactor/demo_1/Socket.h
+ /home/k/server-/reactor/demo_1/TcpServer.h
  /home/k/server-/reactor/demo_1/buffer.h
  /home/k/server-/reactor/demo_1/test1.cc
