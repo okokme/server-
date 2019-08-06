@@ -1,10 +1,10 @@
 #pragma once
 
 #include "Eventloop.h"
-//#include "Channel.h"
+#include "Channel.h"
 #include "Epoll.h"
 #include "buffer.h"
-#include "Coder.h"
+//#include "Coder.h"
 #include "Socket.h"
 #include "Acceptor.h"
 #include <functional>
@@ -20,11 +20,11 @@ class Channel;
 class TcpServer {
 public:
   
-    typedef std::function<void(std::shared_ptr<Channel>)> ConnectionCallback;
+    typedef std::function<void(Channel& )> ConnectionCallback;
     typedef std::function<void(std::shared_ptr<Channel>, Buffer&)> MessageCallback;
     
     TcpServer(Eventloop* loop, const int port); 
-    ~TcpServer();
+    ~TcpServer() { }
 
     Eventloop* getLoop() const { return loop_; }
     void NewConnection(int fd);

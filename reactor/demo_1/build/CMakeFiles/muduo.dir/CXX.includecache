@@ -6,6 +6,10 @@
 
 #IncludeRegexTransform: 
 
+/home/k/server-/reactor/demo_1/Acceptor.cc
+Acceptor.h
+/home/k/server-/reactor/demo_1/Acceptor.h
+
 /home/k/server-/reactor/demo_1/Acceptor.h
 Eventloop.h
 /home/k/server-/reactor/demo_1/Eventloop.h
@@ -15,8 +19,6 @@ Noncopyable.h
 /home/k/server-/reactor/demo_1/Noncopyable.h
 Socket.h
 /home/k/server-/reactor/demo_1/Socket.h
-Coder.h
-/home/k/server-/reactor/demo_1/Coder.h
 
 /home/k/server-/reactor/demo_1/Channel.cc
 Channel.h
@@ -64,18 +66,6 @@ string
 iostream
 -
 functional
--
-
-/home/k/server-/reactor/demo_1/Coder.cc
-
-/home/k/server-/reactor/demo_1/Coder.h
-buffer.h
-/home/k/server-/reactor/demo_1/buffer.h
-Channel.h
-/home/k/server-/reactor/demo_1/Channel.h
-Eventloop.h
-/home/k/server-/reactor/demo_1/Eventloop.h
-iostream
 -
 
 /home/k/server-/reactor/demo_1/Epoll.cc
@@ -154,15 +144,19 @@ assert.h
 arpa/inet.h
 -
 
+/home/k/server-/reactor/demo_1/TcpServer.cc
+TcpServer.h
+/home/k/server-/reactor/demo_1/TcpServer.h
+
 /home/k/server-/reactor/demo_1/TcpServer.h
 Eventloop.h
 /home/k/server-/reactor/demo_1/Eventloop.h
+Channel.h
+/home/k/server-/reactor/demo_1/Channel.h
 Epoll.h
 /home/k/server-/reactor/demo_1/Epoll.h
 buffer.h
 /home/k/server-/reactor/demo_1/buffer.h
-Coder.h
-/home/k/server-/reactor/demo_1/Coder.h
 Socket.h
 /home/k/server-/reactor/demo_1/Socket.h
 Acceptor.h
@@ -196,6 +190,26 @@ algorithm
 iostream
 -
 
+/home/k/server-/reactor/demo_1/httpdeal.cc
+
+/home/k/server-/reactor/demo_1/httpdeal.h
+buffer.h
+/home/k/server-/reactor/demo_1/buffer.h
+Channel.h
+/home/k/server-/reactor/demo_1/Channel.h
+Eventloop.h
+/home/k/server-/reactor/demo_1/Eventloop.h
+iostream
+-
+string
+-
+cstdio
+-
+cstdlib
+-
+string.h
+-
+
 /home/k/server-/reactor/demo_1/test1.cc
 Eventloop.h
 /home/k/server-/reactor/demo_1/Eventloop.h
@@ -205,8 +219,6 @@ Epoll.h
 /home/k/server-/reactor/demo_1/Epoll.h
 buffer.h
 /home/k/server-/reactor/demo_1/buffer.h
-Coder.h
-/home/k/server-/reactor/demo_1/Coder.h
 Socket.h
 /home/k/server-/reactor/demo_1/Socket.h
 TcpServer.h
@@ -223,4 +235,6 @@ assert.h
 -
 signal.h
 -
+httpdeal.h
+/home/k/server-/reactor/demo_1/httpdeal.h
 

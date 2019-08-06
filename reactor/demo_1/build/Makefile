@@ -123,6 +123,33 @@ muduo/fast:
 	$(MAKE) -f CMakeFiles/muduo.dir/build.make CMakeFiles/muduo.dir/build
 .PHONY : muduo/fast
 
+Acceptor.o: Acceptor.cc.o
+
+.PHONY : Acceptor.o
+
+# target to build an object file
+Acceptor.cc.o:
+	$(MAKE) -f CMakeFiles/muduo.dir/build.make CMakeFiles/muduo.dir/Acceptor.cc.o
+.PHONY : Acceptor.cc.o
+
+Acceptor.i: Acceptor.cc.i
+
+.PHONY : Acceptor.i
+
+# target to preprocess a source file
+Acceptor.cc.i:
+	$(MAKE) -f CMakeFiles/muduo.dir/build.make CMakeFiles/muduo.dir/Acceptor.cc.i
+.PHONY : Acceptor.cc.i
+
+Acceptor.s: Acceptor.cc.s
+
+.PHONY : Acceptor.s
+
+# target to generate assembly for a file
+Acceptor.cc.s:
+	$(MAKE) -f CMakeFiles/muduo.dir/build.make CMakeFiles/muduo.dir/Acceptor.cc.s
+.PHONY : Acceptor.cc.s
+
 Channel.o: Channel.cc.o
 
 .PHONY : Channel.o
@@ -149,33 +176,6 @@ Channel.s: Channel.cc.s
 Channel.cc.s:
 	$(MAKE) -f CMakeFiles/muduo.dir/build.make CMakeFiles/muduo.dir/Channel.cc.s
 .PHONY : Channel.cc.s
-
-Coder.o: Coder.cc.o
-
-.PHONY : Coder.o
-
-# target to build an object file
-Coder.cc.o:
-	$(MAKE) -f CMakeFiles/muduo.dir/build.make CMakeFiles/muduo.dir/Coder.cc.o
-.PHONY : Coder.cc.o
-
-Coder.i: Coder.cc.i
-
-.PHONY : Coder.i
-
-# target to preprocess a source file
-Coder.cc.i:
-	$(MAKE) -f CMakeFiles/muduo.dir/build.make CMakeFiles/muduo.dir/Coder.cc.i
-.PHONY : Coder.cc.i
-
-Coder.s: Coder.cc.s
-
-.PHONY : Coder.s
-
-# target to generate assembly for a file
-Coder.cc.s:
-	$(MAKE) -f CMakeFiles/muduo.dir/build.make CMakeFiles/muduo.dir/Coder.cc.s
-.PHONY : Coder.cc.s
 
 Epoll.o: Epoll.cc.o
 
@@ -258,6 +258,33 @@ Socket.cc.s:
 	$(MAKE) -f CMakeFiles/muduo.dir/build.make CMakeFiles/muduo.dir/Socket.cc.s
 .PHONY : Socket.cc.s
 
+TcpServer.o: TcpServer.cc.o
+
+.PHONY : TcpServer.o
+
+# target to build an object file
+TcpServer.cc.o:
+	$(MAKE) -f CMakeFiles/muduo.dir/build.make CMakeFiles/muduo.dir/TcpServer.cc.o
+.PHONY : TcpServer.cc.o
+
+TcpServer.i: TcpServer.cc.i
+
+.PHONY : TcpServer.i
+
+# target to preprocess a source file
+TcpServer.cc.i:
+	$(MAKE) -f CMakeFiles/muduo.dir/build.make CMakeFiles/muduo.dir/TcpServer.cc.i
+.PHONY : TcpServer.cc.i
+
+TcpServer.s: TcpServer.cc.s
+
+.PHONY : TcpServer.s
+
+# target to generate assembly for a file
+TcpServer.cc.s:
+	$(MAKE) -f CMakeFiles/muduo.dir/build.make CMakeFiles/muduo.dir/TcpServer.cc.s
+.PHONY : TcpServer.cc.s
+
 buffer.o: buffer.cc.o
 
 .PHONY : buffer.o
@@ -284,6 +311,33 @@ buffer.s: buffer.cc.s
 buffer.cc.s:
 	$(MAKE) -f CMakeFiles/muduo.dir/build.make CMakeFiles/muduo.dir/buffer.cc.s
 .PHONY : buffer.cc.s
+
+httpdeal.o: httpdeal.cc.o
+
+.PHONY : httpdeal.o
+
+# target to build an object file
+httpdeal.cc.o:
+	$(MAKE) -f CMakeFiles/muduo.dir/build.make CMakeFiles/muduo.dir/httpdeal.cc.o
+.PHONY : httpdeal.cc.o
+
+httpdeal.i: httpdeal.cc.i
+
+.PHONY : httpdeal.i
+
+# target to preprocess a source file
+httpdeal.cc.i:
+	$(MAKE) -f CMakeFiles/muduo.dir/build.make CMakeFiles/muduo.dir/httpdeal.cc.i
+.PHONY : httpdeal.cc.i
+
+httpdeal.s: httpdeal.cc.s
+
+.PHONY : httpdeal.s
+
+# target to generate assembly for a file
+httpdeal.cc.s:
+	$(MAKE) -f CMakeFiles/muduo.dir/build.make CMakeFiles/muduo.dir/httpdeal.cc.s
+.PHONY : httpdeal.cc.s
 
 test1.o: test1.cc.o
 
@@ -321,12 +375,12 @@ help:
 	@echo "... rebuild_cache"
 	@echo "... muduo"
 	@echo "... edit_cache"
+	@echo "... Acceptor.o"
+	@echo "... Acceptor.i"
+	@echo "... Acceptor.s"
 	@echo "... Channel.o"
 	@echo "... Channel.i"
 	@echo "... Channel.s"
-	@echo "... Coder.o"
-	@echo "... Coder.i"
-	@echo "... Coder.s"
 	@echo "... Epoll.o"
 	@echo "... Epoll.i"
 	@echo "... Epoll.s"
@@ -336,9 +390,15 @@ help:
 	@echo "... Socket.o"
 	@echo "... Socket.i"
 	@echo "... Socket.s"
+	@echo "... TcpServer.o"
+	@echo "... TcpServer.i"
+	@echo "... TcpServer.s"
 	@echo "... buffer.o"
 	@echo "... buffer.i"
 	@echo "... buffer.s"
+	@echo "... httpdeal.o"
+	@echo "... httpdeal.i"
+	@echo "... httpdeal.s"
 	@echo "... test1.o"
 	@echo "... test1.i"
 	@echo "... test1.s"

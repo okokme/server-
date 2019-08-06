@@ -4,14 +4,15 @@
 #include "Channel.h"
 #include "Noncopyable.h"
 #include "Socket.h"
-#include "Coder.h"
+//#include "Coder.h"
 
 class Channel;
+
 class Acceptor : Noncopyable{
 public: 
     typedef std::function<void(int fd)> NewConnectionCallback;
      Acceptor(Eventloop *loop, int port);//:loop_(loop);
-    ~Acceptor();
+    ~Acceptor() { }
     void setNewConnectionCallback(NewConnectionCallback cb) { newConnectionCallback_ = cb; } //accept回调
  //   bool listenning() const { return listenning; }
     void listen() { }

@@ -59,6 +59,7 @@ public:
     int recvmessage();
 
     int fd() { return fd_;}//socket_.getfd(); }
+    void setFd( int fd ) { fd_ = fd; }
    
     void set_revents(int revt) { printf("in Channel::set_revents\n");revents_ = revt; }//内核事件表给revents_
     int get_revents() const { return revents_; }

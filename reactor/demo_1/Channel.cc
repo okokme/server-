@@ -71,6 +71,7 @@ void Channel::handleRead() {
     {
         handleError();
     }
+    input_.retrieveAll();
 }
 
 void Channel::handleClose()

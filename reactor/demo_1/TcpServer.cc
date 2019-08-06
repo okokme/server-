@@ -4,7 +4,7 @@ TcpServer::TcpServer(Eventloop* loop, const int port):loop_(loop), acceptor_(loo
     acceptor_.setNewConnectionCallback(std::bind(&TcpServer::NewConnection, this, std::placeholders::_1));
    
 }
-void TcpServer::NewConnection(fd)
+void TcpServer::NewConnection(int fd)
 {
     //acceptor_.//绑定Channel中的Handleaccept
     std::shared_ptr<Channel> accept_cha ( new Channel(loop_, fd, EPOLLIN | EPOLLERR));
@@ -21,5 +21,5 @@ void TcpServer::NewConnection(fd)
 void TcpServer::start() 
 {
     if(connectionCallback_)
-        connectionCallback_(acceptor_.getChannel());
+        connectionCallback_(*acceptor_.getChannel().get());
 }

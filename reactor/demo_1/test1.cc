@@ -2,7 +2,7 @@
 #include "Channel.h"
 #include "Epoll.h"
 #include "buffer.h"
-#include "Coder.h"
+//#include "Coder.h"
 #include "Socket.h"
 #include "TcpServer.h"
 #include <functional>
@@ -11,20 +11,34 @@
 #include <arpa/inet.h>
 #include <assert.h>
 #include <signal.h>
+#include "httpdeal.h"
 
 //把onMessage绑定到listenfd的Channel中让接受来的每一个事件都有一个onMessage
 
 class Server {
 public:
     Server(Eventloop* loop, int port):loop_(loop),server_(loop, port) {
-        server_.setConnectionCallback(std::bind(&connection, this, std::placeholders::_1 ));
-        server_.setMessageCallback(std::bind(&onMessage, std::placeholders::_1, std::placeholders::_2));
+    //typedef std::function<void(std::shared_ptr<Channel>)> ConnectionCallback;
+    //typedef std::function<void(std::shared_ptr<Channel>, Buffer&)> MessageCallback;
+     //   server_.setConnectionCallback(std::bind(&Server::connection,this,  std::placeholders::_1 ));
+     //   server_.setMessageCallback(std::bind(&Server::onMessage,this, std::placeholders::_1, std::placeholders::_2));
+        
+         server_.setConnectionCallback(std::bind(connection,  std::placeholders::_1 ));
+         server_.setMessageCallback(std::bind(onMessage, std::placeholders::_1, std::placeholders::_2));
     }
     void start() { server_.start(); }
-
+    // void onMessage(std::shared_ptr<Channel> chl, Buffer& buf_)
+    // {
+    //     std::cout<<"onMessage"<<std::endl;
+    //     std::cout<<buf_.c_str()<<std::endl;
+    
+    // }
+    // void connection( Channel &firstSend ){
+    //     firstSend.sendmssage();
+    // }
 private:
     TcpServer server_;
-    Eventloop loop_;
+    Eventloop *loop_;
 };
 
 int main(int argc, char const *argv[])

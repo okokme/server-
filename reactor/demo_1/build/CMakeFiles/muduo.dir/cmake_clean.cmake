@@ -1,10 +1,12 @@
 file(REMOVE_RECURSE
   "CMakeFiles/muduo.dir/Channel.cc.o"
+  "CMakeFiles/muduo.dir/Acceptor.cc.o"
+  "CMakeFiles/muduo.dir/TcpServer.cc.o"
   "CMakeFiles/muduo.dir/Eventloop.cc.o"
   "CMakeFiles/muduo.dir/Socket.cc.o"
   "CMakeFiles/muduo.dir/buffer.cc.o"
   "CMakeFiles/muduo.dir/Epoll.cc.o"
-  "CMakeFiles/muduo.dir/Coder.cc.o"
+  "CMakeFiles/muduo.dir/httpdeal.cc.o"
   "CMakeFiles/muduo.dir/test1.cc.o"
   "muduo.pdb"
   "muduo"
