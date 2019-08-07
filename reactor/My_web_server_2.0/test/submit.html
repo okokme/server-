@@ -7,7 +7,7 @@
 /* 让页面所有元素的padding和margin都设置为0 */ 
 *{margin:0;padding:0;box-sizing:border-box;}
 /* 设置背景图，字体设置为微软雅黑 */ 
-body{background:url(picture/1.png);font-family: "微软雅黑", sans-serif;}
+body{background:url(/home/k/server-/reactor/My_web_server_2.0/img/1.png);font-family: "微软雅黑", sans-serif;}
 /* 引用图片高度设置为28px，就是页面最上方像屋檐一样的黑色图 */ 
 /* .headtop{background:url(bg.png);height:28px;} */
 /* 整个登录框的css，并使用绝对定位居中 */ 
@@ -47,7 +47,7 @@ form button{
 <div class="headtop"></div>
 <div class="login">
   <h1>加法计算</h1>
-  <form name = "input" action="/CGI/adder" method="post">
+  <form name = "input" action="/home/k/server-/reactor/My_web_server_2.0/src/config/CGI/adder" method="post">
     <input type="text" name="a" placeholder=第一个数字 required="required">
     <input type="text" name="b" placeholder="第二个数字" required="required">
   <!-- <button type="submit">add</button> -->
