@@ -1,0 +1,46 @@
+#include <stdio.h>
+#include <sys/stat.h>
+#include <sys/types.h>//pid_t的定义
+#include <unistd.h>
+#include <wait.h>
+#include <errno.h>
+#include <stdlib.h>
+/***********************************************************
+    功能说明：进程等待wait()方法的应用
+    author: linux.sir@qq.com
+***********************************************************/
+void waitprocess();
+int main(int argc, char * argv[])
+{
+  waitprocess();  
+}
+void waitprocess()
+{
+  int count = 0;
+  pid_t pid = fork();//创建子进程，返回两个值，父进程返回子进程ID>0，子进程返回0
+  int status = -1;  
+  if(pid<0)
+  {
+    printf("fork error for %m\n",errno );
+  }
+  else if(pid>0) //父进程空间
+  {
+    printf("this is parent ,pid = %d\n",getpid() );
+    wait(&status);//父进程执行到此，马上阻塞自己，直到有子进程结束。当发现有子进程结束时，就会回收它的资源。    
+  }
+  else //子进程空间
+  {
+    printf("this is child , pid = %d , ppid = %d\n",getpid(),getppid());
+    int i;    
+    for (i = 0; i < 10; i++)
+    {
+      count++;
+      sleep(1);//进入睡眠，暂时释放时间片，给其他线程
+      printf("count = %d\n", count);      
+    }
+    exit(5); //非0表示子进程异常退出，返回至wait处，回收子进程资源
+  }
+  printf("child exit status is %d\n", WEXITSTATUS(status));//status是按位存储的状态信息，需要调用相应的宏来还原一下  
+  printf("end of program from pid = %d\n",getpid() );  //父进程结束
+}
+
