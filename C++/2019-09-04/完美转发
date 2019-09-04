@@ -1,0 +1,25 @@
+所谓完美转发，实际就是一个参数对象的准确传递的过程。
+引用折叠的方式：
+x& + R => x& (R代表右值)
+x& + & => x&
+x&& + R => x&&
+x&& + & => x&
+x& + && => x&
+x&& + && => x&&
+这个引用折叠，就是当两种不同类型遇到后，合并的规则。
+可以仔细考虑一下，为什么右值引用非常有用？
+
+在c++中，存在这么一个问题，即如果参数数量和类型无法固定，那么怎么办？解决的方法有以下几种形式：
+最初的方法是使用重载函数，把所有相关的参数数量和类型都搞一遍，这是最简单最暴力的解决方法，但是这样的代码一个是不优雅，另外一个是大量的逻辑重复的代码。
+然后就是可以进一步，使用模板函数，这样可以大大降低函数数量，但是这里有一个问题，就是如何保证参数类型的完全一致。这在c++11以前是一个痛点。
+最后就是c++11引入了完美转发（std::forward）,完美的解决了这个问题。
+
+template< class T >
+T&& forward( typename std::remove_reference<T>::type& t ) noexcept;(1)	(C++11 起) (C++14 前)
+template< class T >
+constexpr T&& forward( typename std::remove_reference<T>::type& t ) noexcept;(1)	(C++14 起)
+template< class T >
+T&& forward( typename std::remove_reference<T>::type&& t ) noexcept;(2)	(C++11 起) (C++14 前)
+template< class T >
+constexpr T&& forward( typename std::remove_reference<T>::type&& t ) noexcept;(2)	(C++14 起)
+转发后的规则，就是上面讲得折叠引用的规则。

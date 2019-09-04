@@ -37,9 +37,9 @@ int Forward()
 {
 	//注意：如果非类型精确匹配，则注释的重载可以生效
 	//但是要注意右值的函数定义注释，否则仍然会有问题
-	//double  a = 1.0;
-	//Test(a);
-	int a = 0;
+	double  a = 1.0;
+	Test(a);
+	//int a = 0;
 	std_forward(a);
 
 	const int b = 20;
