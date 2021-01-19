@@ -1,0 +1,17 @@
+用法：/usr/bin/addr2line [选项] [地址]
+ 将地址转换成文件名/行号对。
+ 如果没有在命令行中给出地址，就从标准输入中读取它们
+ 选项是：
+  @<file>                     读取选项从 <file>
+  -a --addresses              显示地址
+  -b --target=<bfdname>       设置二进位文件格式
+  -e --exe=<executable><name> 设置输入文件名称（默认为 a.out）
+  -i --inlines                解开内联函数
+  -j --section=<name>         读取相对于段的偏移而非地址
+  -p --pretty-print           让输出对人类更可读
+  -s --basenames              去除目录名
+  -f --functions              显示函数名
+  -C --demangle[=style]       解码函数名
+  -h --help                   显示本帮助
+/usr/bin/addr2line：支持的目标： elf64-x86-64 elf32-i386 elf32-iamcu elf32-x86-64 a.out-i386-linux pei-i386 pei-x86-64 elf64-l1om elf64-k1om elf64-little elf64-big elf32-little elf32-big pe-x86-64 pe-bigobj-x86-64 pe-i386 plugin srec symbolsrec verilog tekhex binary ihex
+将 bug 报告到 <http://www.sourceware.org/bugzilla/>
